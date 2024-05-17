@@ -1,5 +1,69 @@
 ﻿class estacionamiento
 {
+    static bool[,,] espaciosOcupados;
+    static void Graficar()
+    {
+        int filas = 3;
+        int columnas = 3;
+        int niveles = 4;
+        int numEspacios = 8;
+
+        espaciosOcupados = new bool[filas, numEspacios, niveles];
+
+        DibujarEstacionamiento(filas, columnas, niveles, numEspacios);
+
+        Console.WriteLine("Seleccione el número de nivel:");
+        int nivelSeleccionado = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Seleccione el número de espacio que desea ocupar:");
+        int espacioSeleccionado = int.Parse(Console.ReadLine());
+
+        for (int i = 0; i < filas; i++)
+        {
+            espaciosOcupados[i, espacioSeleccionado - 1, nivelSeleccionado - 1] = true;
+        }
+
+        DibujarEstacionamiento(filas, columnas, niveles, numEspacios);
+    }
+
+    static void DibujarEstacionamiento(int filas, int columnas, int niveles, int numEspacios)
+    {
+        for (int k = 0; k < niveles; k++)
+        {
+            Console.WriteLine($"Nivel {k + 1}:");
+            for (int i = 0; i < filas; i++)
+            {
+                for (int e = 0; e < numEspacios; e++)
+                {
+                    if (espaciosOcupados[i, e, k])
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+
+                    for (int j = 0; j < columnas; j++)
+                    {
+                        if (i == 0 || i == filas - 1 || j == 0 || j == columnas - 1)
+                        {
+                            Console.Write("*");
+                        }
+                        else
+                        {
+                            Console.Write(" ");
+                        }
+                    }
+                    Console.Write("  ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+
+        Console.ResetColor();
+    }
     static void Main(string[] args)
     {
         Console.WriteLine("Bienvenido al estacionamiento UNICAES");
@@ -20,45 +84,35 @@
             {
                 case 1:
                     Console.WriteLine("los estacionamientos disponibles para motocicleta son los siguientes:");
-                    Console.WriteLine("");
-                    //aca agregen la graficadora
-                    Console.WriteLine("seleccione el estacionamiento que desea utilizar");
-                    Console.WriteLine("");
-                    //aca agregen la opcion para que el usuario eliga el estacionamient
-
+                    Graficar();
                     break;
                 case 2:
                     Console.WriteLine("los estacionamientos disponibles para un vehiculo tipo sedan son los siguientes: ");
-                    Console.WriteLine("");
-                    //aca agregen la graficadora (literalmente solo copie y pegue ya que es la misma mamada XD
+                    Graficar();
                     Console.WriteLine("seleccione el estacionamiento que desea utilizar");
                     Console.WriteLine("");
-                    //aca agregen la opcion para que el usuario eliga el estacionamient
-
                     break;
                 case 3:
                     Console.WriteLine("los estacionamientos disponibles para camioneta son los siguientes: ");
                     Console.WriteLine("");
-                    //aca agregen la graficadora
+                    Graficar();
                     Console.WriteLine("seleccione el estacionamiento que desea utilizar");
                     Console.WriteLine("");
-                    //aca agregen la opcion para que el usuario eliga el estacionamient
                     break;
                 case 4:
                     Console.WriteLine("los estacionamientos disponibles para microbuses son los siguientes: ");
                     Console.WriteLine("");
-                    //aca agregen la graficadora
+                    Graficar();
                     Console.WriteLine("seleccione el estacionamiento que desea utilizar");
                     Console.WriteLine("");
-                    //aca agregen la opcion para que el usuario eliga el estacionamient
                     break;
                 case 5:
-                    Console.WriteLine("Gracias por visitarnos esperamos que vuelva pronto :V");
-                    salir=true;
+                    Console.WriteLine("Gracias por visitarnos esperamos que vuelva pronto");
+                    salir = true;
                     Console.ReadKey();
 
                     break;
-               
+
 
             }
 
